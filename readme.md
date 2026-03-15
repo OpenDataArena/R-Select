@@ -34,7 +34,7 @@
 
 ```bash
 # 1. 克隆项目
-git clone https://github.com/GX-XinGao/R-Select.git
+git clone --recurse-submodules https://github.com/OpenDataArena/R-Select.git
 cd R-Select
 
 # 2. 创建并激活环境

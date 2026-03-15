@@ -1,3 +1,6 @@
 [submodule "LlamaFactory"]
 	path = LlamaFactory
 	url = https://github.com/hiyouga/LlamaFactory.git
+[submodule "ODA-DataScorer"]
+	path = ODA-DataScorer
+	url = https://github.com/OpenDataArena/ODA-DataScorer.git

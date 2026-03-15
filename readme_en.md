@@ -36,7 +36,7 @@ It is recommended to run this project in the `rselect` conda environment.
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/GX-XinGao/R-Select.git
+git clone --recurse-submodules https://github.com/OpenDataArena/R-Select.git
 cd R-Select
 
 # 2. Create and activate the environment
