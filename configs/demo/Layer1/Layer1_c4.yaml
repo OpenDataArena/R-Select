@@ -1,0 +1,60 @@
+# ============================================================
+# SFT Data Selection Pipeline - Configuration
+# ============================================================
+
+# -------------------- Required --------------------
+pool_jsonl: data/demo_normalized.jsonl
+val_jsonl: data/demo_val.jsonl
+top_k: 1500
+base_train_yaml: configs/demo/demo_proxy.yaml
+run_dir: results/demo/Layer1/Layer1_c4
+study_name: Layer1_c4
+storage: sqlite:///results/demo/Layer1/Layer1_c4/study.db
+n_trials: 100
+
+# -------------------- Score Settings --------------------
+score_keys:
+  - Writing_Style
+  - Required_Expertise
+  - Facts_Trivia
+  - Educational_Value
+  - Readability
+
+score_field: scores
+
+# -------------------- Precomputed Index (recommended for large datasets) --------------------
+pool_index: data/demo_normalized_index.pkl
+
+# -------------------- Training --------------------
+seed: 42
+num_train_epochs: 1.0
+eval_strategy: epoch
+per_device_eval_batch_size: 0
+
+# -------------------- GPU / Runtime --------------------
+cuda_visible_devices: ""
+master_port: 0
+llama_factory_dir: ""
+
+# -------------------- Optuna --------------------
+normalization_method: linear
+suggest_range: [0, 1]
+n_startup_trials: 10
+
+tpe_multivariate: false
+tpe_n_ei_candidates: 500
+tpe_gamma_percent: 0.1
+tpe_gamma_max: 25
+
+# -------------------- Early Stopping --------------------
+early_stop_patience: 20
+early_stop_delta: 0.0001
+
+# -------------------- Warm-start --------------------
+# warmup_trials_json: /path/to/warmup.json
+# enqueue_weights_json: /path/to/enqueue.json
+
+# -------------------- Advanced --------------------
+cache_pool_in_memory: false
+max_trials_in_dir: 1000000
+running_timeout_hours: 24.0

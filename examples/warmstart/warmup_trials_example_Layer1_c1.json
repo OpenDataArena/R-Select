@@ -1,0 +1,42 @@
+[
+  {
+    "weights": {
+      "AtheneRM": 0.2,
+      "Cleanliness": 0.2,
+      "LLM_as_Judge_Complexity": 0.2,
+      "Compress_Ratio": 0.2,
+      "Deita_Complexity": 0.2
+    },
+    "eval_loss": 6.95
+  },
+  {
+    "weights": {
+      "AtheneRM": 0.133,
+      "Cleanliness": 0.338,
+      "LLM_as_Judge_Complexity": 0.260,
+      "Compress_Ratio": 0.213,
+      "Deita_Complexity": 0.056
+    },
+    "eval_loss": 6.834
+  },
+  {
+    "weights": {
+      "AtheneRM": 0.1,
+      "Cleanliness": 0.4,
+      "LLM_as_Judge_Complexity": 0.2,
+      "Compress_Ratio": 0.2,
+      "Deita_Complexity": 0.1
+    },
+    "eval_loss": 6.92
+  },
+  {
+    "weights": {
+      "AtheneRM": 0.05,
+      "Cleanliness": 0.35,
+      "LLM_as_Judge_Complexity": 0.3,
+      "Compress_Ratio": 0.2,
+      "Deita_Complexity": 0.1
+    },
+    "eval_loss": 7.02
+  }
+]
