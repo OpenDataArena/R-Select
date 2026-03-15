@@ -52,14 +52,15 @@ conda activate rselect
 pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu124
 
 # 4. Install LlamaFactory and core dependencies (LlamaFactory is included in the project)
+conda install -c conda-forge pandas=2.3.3 pyarrow=22.0.0 av=16.0.1 sentencepiece=0.2.1 tiktoken=0.12.0 -y
 cd LlamaFactory
 pip install -e .
 cd ..
-conda install -c conda-forge pandas=2.3.3
 pip install -r requirements.txt
 
 # 5. Optional: embed script (data clustering) requires vLLM; skip if not used
 pip install vllm==0.8.5.post1
+pip install numpy==1.26.3 # Installing vllm may raise numpy version too high; manually downgrade to 1.26.3
 ```
 
 ### Notes

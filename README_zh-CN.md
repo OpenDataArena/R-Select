@@ -52,14 +52,15 @@ conda activate rselect
 pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu124
 
 # 4. 安装 LlamaFactory 及核心依赖（LlamaFactory 已包含于项目内）
+conda install -c conda-forge pandas=2.3.3 pyarrow=22.0.0 av=16.0.1 sentencepiece=0.2.1 tiktoken=0.12.0 -y
 cd LlamaFactory
 pip install -e .
 cd ..
-conda install -c conda-forge pandas=2.3.3
 pip install -r requirements.txt
 
 # 5. 可选：embed 脚本（数据聚类）需要 vLLM，不用时可跳过
 pip install vllm==0.8.5.post1
+pip install numpy==1.26.3 # vllm 安装会导致 numpy 版本过高，需要手动回退到 1.26.3
 ```
 
 ### 说明
