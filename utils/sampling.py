@@ -87,7 +87,8 @@ def _run_per_cluster(abs_input: str, abs_output: str, total: int, ratio: float, 
     print(f"\n[INFO] Second pass: filtering and writing output...")
     t2 = time.time()
     out_dir = os.path.dirname(abs_output)
-    if out_dir:
+    # Ensure output directory exists before writing
+    if out_dir and not os.path.exists(out_dir):
         os.makedirs(out_dir, exist_ok=True)
 
     cluster_written: dict[int, int] = {}
@@ -163,7 +164,8 @@ def _run_global(abs_input: str, abs_output: str, total: int, ratio: float, score
     print(f"\n[INFO] Second pass: filtering and writing output...")
     t2 = time.time()
     out_dir = os.path.dirname(abs_output)
-    if out_dir:
+    # Ensure output directory exists before writing
+    if out_dir and not os.path.exists(out_dir):
         os.makedirs(out_dir, exist_ok=True)
 
     written = 0
@@ -219,6 +221,11 @@ def main():
     print(f"[INFO] Output file: {abs_output}")
     print(f"[INFO] Selection ratio: top {args.top_k}%")
     print(f"[INFO] Mode: {'Select top k% within each cluster' if per_cluster else 'Select top k% in all data'}")
+
+    # Ensure output directory exists before further processing
+    out_dir = os.path.dirname(abs_output)
+    if out_dir and not os.path.exists(out_dir):
+        os.makedirs(out_dir, exist_ok=True)
 
     # Count total lines
     print("[INFO] Counting total number of lines...")

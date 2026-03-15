@@ -170,8 +170,9 @@ def run(root: str, output_path: str) -> None:
         },
     }
 
+    # Ensure the output directory exists; create if it doesn't
     out_dir = os.path.dirname(output_path)
-    if out_dir:
+    if out_dir and not os.path.exists(out_dir):
         os.makedirs(out_dir, exist_ok=True)
 
     with open(output_path, "w", encoding="utf-8") as f:
@@ -185,6 +186,10 @@ def main() -> None:
     args = parse_args()
     root = os.path.abspath(args.input)
     output_path = os.path.abspath(args.output)
+    # Ensure the output directory exists; create if it doesn't
+    out_dir = os.path.dirname(output_path)
+    if out_dir and not os.path.exists(out_dir):
+        os.makedirs(out_dir, exist_ok=True)
     run(root, output_path)
 
 

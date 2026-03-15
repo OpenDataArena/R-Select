@@ -164,6 +164,11 @@ def parse_args() -> argparse.Namespace:
 if __name__ == '__main__':
     # Record overall start time
     args = parse_args()
+
+    # Ensure output_dir exists before usage
+    if args.output_dir and not os.path.exists(args.output_dir):
+        os.makedirs(args.output_dir, exist_ok=True)
+
     overall_start_time = time.time()
     print(f"Opening file '{args.input_path}' in read-only memory-mapped mode...")
     embeddings_mmap = np.load(args.input_path, mmap_mode='r')

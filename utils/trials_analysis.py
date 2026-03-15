@@ -24,6 +24,7 @@ Usage:
 import argparse
 import json
 import optuna
+import os
 from typing import List, Dict, Any
 
 
@@ -80,8 +81,16 @@ def print_trials_table(trials: List[Dict[str, Any]], top_n_weights: int = 5):
     print(f"{'='*100}\n")
 
 
+def ensure_output_dir_exists(output_path: str):
+    """Ensure that the output file's parent directory exists."""
+    dir_path = os.path.dirname(os.path.abspath(output_path))
+    if dir_path and not os.path.exists(dir_path):
+        os.makedirs(dir_path, exist_ok=True)
+
+
 def export_to_json(trials: List[Dict[str, Any]], output_path: str):
     """Export trials to a JSON file"""
+    ensure_output_dir_exists(output_path)
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(trials, f, ensure_ascii=False, indent=2)
     print(f"Exported {len(trials)} trials to {output_path}")
@@ -94,6 +103,8 @@ def export_to_csv(trials: List[Dict[str, Any]], output_path: str):
     if not trials:
         print("No trials to export")
         return
+
+    ensure_output_dir_exists(output_path)
 
     # Collect all possible weight keys
     all_weight_keys = set()
