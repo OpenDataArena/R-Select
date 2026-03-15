@@ -4,6 +4,8 @@ import numpy as np
 from typing import List, Tuple
 from tqdm import tqdm
 from vllm import LLM
+import os
+from pathlib import Path
 
 
 def tokenize_and_truncate(
@@ -171,6 +173,13 @@ if __name__ == "__main__":
     embeddings = get_embeddings(global_data_trunc, embedder, batch_size=args.embed_batch_size)
 
     # ========== 6) Save as float64 .npy ==========
+
+    # Ensure output directory exists before saving embeddings
+    out_path = Path(args.output_path)
+    out_dir = out_path.parent
+    if not out_dir.exists() and str(out_dir) != '':
+        out_dir.mkdir(parents=True, exist_ok=True)
+
     embeddings_float64 = embeddings.astype(np.float64)
     np.save(args.output_path, embeddings_float64)
 

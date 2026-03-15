@@ -406,6 +406,12 @@ def save_cluster_results(clusters, score_names, output_path):
     """Save clustering results to file"""
     print(f"\n💾 Saving cluster results to: {output_path}")
     
+    out_path_obj = Path(output_path)
+    out_dir = out_path_obj.parent
+    if not out_dir.exists():
+        print(f"📝 Output directory '{out_dir}' does not exist. Creating it.")
+        out_dir.mkdir(parents=True, exist_ok=True)
+
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write("Score Clustering Results Based on Pearson Correlation\n")
         f.write("="*80 + "\n\n")
@@ -424,6 +430,12 @@ def plot_dendrogram(linkage_matrix, score_names, output_path, figsize=(20, 12)):
     """Plot dendrogram"""
     print(f"\n🎨 Generating dendrogram ...")
     
+    out_path_obj = Path(output_path)
+    out_dir = out_path_obj.parent
+    if not out_dir.exists():
+        print(f"📝 Output directory '{out_dir}' does not exist. Creating it.")
+        out_dir.mkdir(parents=True, exist_ok=True)
+
     plt.figure(figsize=figsize)
     
     # Draw
@@ -450,6 +462,12 @@ def plot_dendrogram(linkage_matrix, score_names, output_path, figsize=(20, 12)):
 def plot_clustered_correlation(corr_matrix, cluster_labels, score_names, output_path, figsize=(20, 16)):
     """Plot clustered correlation heatmap"""
     print(f"\n🎨 Drawing clustered correlation heatmap ...")
+
+    out_path_obj = Path(output_path)
+    out_dir = out_path_obj.parent
+    if not out_dir.exists():
+        print(f"📝 Output directory '{out_dir}' does not exist. Creating it.")
+        out_dir.mkdir(parents=True, exist_ok=True)
     
     # Sort by cluster label first, then internally alphabetically
     cluster_order = []
@@ -663,6 +681,10 @@ def main():
     clusters = print_cluster_results(score_keys, cluster_labels, corr_matrix)
     
     output_path = Path(args.output)
+
+    # Ensure output directory exists before saving results
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
     save_cluster_results(clusters, score_keys, str(output_path))
     
     # Use mapped display names if provided
@@ -671,6 +693,9 @@ def main():
     # Step 7: Plotting
     base_name = output_path.stem
     output_dir = output_path.parent
+
+    # Ensure output directory exists for plots as well (redundancy for safety)
+    output_dir.mkdir(parents=True, exist_ok=True)
     
     if args.plot_dendrogram or (not args.plot_dendrogram and not args.plot_heatmap):
         # By default, plot the dendrogram
