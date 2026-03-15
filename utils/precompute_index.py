@@ -110,6 +110,11 @@ def save_index(
         "version": "1.0",
     }
     
+    # Ensure directory exists for output_path
+    output_dir = os.path.dirname(os.path.abspath(output_path))
+    if output_dir and not os.path.exists(output_dir):
+        os.makedirs(output_dir, exist_ok=True)
+    
     print(f"Saving index to {output_path}...")
     with open(output_path, "wb") as f:
         pickle.dump(data, f, protocol=pickle.HIGHEST_PROTOCOL)

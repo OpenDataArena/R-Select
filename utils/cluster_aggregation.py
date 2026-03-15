@@ -63,7 +63,10 @@ def process(input_path: str, output_path: str | None, weights: dict, score_field
         os.close(tmp_fd)
         final_output = tmp_path
     else:
-        os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
+        output_abs = os.path.abspath(output_path)
+        out_dir = os.path.dirname(output_abs)
+        if out_dir and not os.path.exists(out_dir):
+            os.makedirs(out_dir, exist_ok=True)
         final_output = output_path
 
     weight_keys = list(weights.keys())

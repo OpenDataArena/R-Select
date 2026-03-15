@@ -181,6 +181,11 @@ def run(
         except Exception:
             os.close(fd)
             raise
+    else:
+        # Ensure the output directory exists
+        out_dir = os.path.dirname(output_path)
+        if out_dir and not os.path.exists(out_dir):
+            os.makedirs(out_dir, exist_ok=True)
 
     # Pass 2: write with _orig and normalized values
     print(f"[Merge] Pass 2/2: writing with normalization...")
@@ -231,9 +236,10 @@ def main() -> None:
         print(f"[Error] Input file not found: {input_path}", file=sys.stderr)
         sys.exit(1)
 
+    # Ensure that the output directory exists, if output path is specified
     if output_path:
         out_dir = os.path.dirname(output_path)
-        if out_dir:
+        if out_dir and not os.path.exists(out_dir):
             os.makedirs(out_dir, exist_ok=True)
 
     run(

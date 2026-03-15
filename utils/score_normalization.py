@@ -321,9 +321,13 @@ def main():
         sys.exit(1)
 
     out_dir = os.path.dirname(os.path.abspath(args.output))
-    if not os.path.isdir(out_dir):
-        print(f"[Error] Output directory does not exist: {out_dir}", file=sys.stderr)
-        sys.exit(1)
+    if out_dir and not os.path.isdir(out_dir):
+        try:
+            os.makedirs(out_dir, exist_ok=True)
+            print(f"  Output directory was created: {out_dir}")
+        except Exception as e:
+            print(f"[Error] Failed to create output directory: {out_dir}\n{e}", file=sys.stderr)
+            sys.exit(1)
 
     target_keys = set(args.keys) if args.keys else None
     flip_keys   = set(args.flip_keys) if args.flip_keys else set()

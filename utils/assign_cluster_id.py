@@ -89,6 +89,11 @@ def main():
     print(f"Labels file : {args.labels_path}")
     print(f"Output JSONL: {args.output_jsonl}")
 
+    # If the directory of the specified output_jsonl path does not exist, create it
+    output_dir = os.path.dirname(os.path.abspath(args.output_jsonl))
+    if output_dir and not os.path.exists(output_dir):
+        os.makedirs(output_dir, exist_ok=True)
+
     # --- Load cluster labels ---
     print("\n[1/3] Loading cluster labels...")
     labels = np.load(args.labels_path)
