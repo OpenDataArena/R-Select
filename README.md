@@ -601,9 +601,10 @@ python utils/summarization.py -i results/demo -o results/demo/weight_summary.jso
 ```
 R-Select/
 ├── main.py                 # Optuna optimization main program
-├── run.sh                  # Example pipeline script
-├── requirements.txt        # R-Select dependencies
-├── readme.md / readme_en.md
+├── README.md               # Documentation (English)
+├── README_zh-CN.md         # Documentation (Chinese)
+├── requirements.txt       # R-Select dependencies
+├── LICENSE
 ├── ODA-DataScorer/         # Data scoring submodule (60+ scorers)
 │   ├── model_based/        #   Neural model scorers
 │   └── heuristic/          #   Statistical/rule-based scorers
@@ -612,8 +613,8 @@ R-Select/
 │   └── demo/
 │       ├── demo_proxy.yaml # LlamaFactory proxy training config
 │       ├── scores.txt      # Metric names used in this demo
-│       ├── Layer1/         # Layer1 cluster configs
-│       └── Layer2/         # Layer2 configs
+│       ├── Layer1/         # Layer1 cluster configs (Layer1_c1..c6.yaml)
+│       └── Layer2/         # Layer2 configs (Layer2_c1.yaml)
 ├── utils/                  # Utility scripts
 │   ├── score_normalization.py
 │   ├── metrics_clustering.py
@@ -626,8 +627,13 @@ R-Select/
 │   ├── sampling.py
 │   ├── summarization.py
 │   └── trials_analysis.py
-├── data/                   # Data directory
-│   └── scores.txt          # Default metric names
+├── examples/               # Example configs and assets
+│   └── warmstart/          # Warm-start JSON examples (Layer1_c1, etc.)
+├── data/                   # Data directory (pool, val, clustering outputs)
+│   ├── demo.jsonl          # Demo pool (with scores)
+│   ├── demo_val.jsonl      # Demo validation set
+│   ├── metrics_clustering/
+│   └── samples_clustering/
 └── results/                # Optimization results
     └── demo/
         ├── Layer1/

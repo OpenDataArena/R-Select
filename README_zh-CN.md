@@ -602,21 +602,22 @@ python utils/summarization.py -i results/demo -o results/demo/weight_summary.jso
 
 ```
 R-Select/
-├── main.py                 # Optuna 优化主程序
-├── run.sh                  # 示例流水线脚本
-├── requirements.txt        # R-Select 依赖
-├── readme.md / readme_en.md
-├── ODA-DataScorer/         # 数据打分子模块（60+ scorers）
-│   ├── model_based/        #   神经模型 scorers
-│   └── heuristic/          #   统计/规则类 scorers
-├── LlamaFactory/           # SFT 训练框架（子模块）
+├── main.py                 # Optuna optimization main program
+├── README.md               # Documentation (English)
+├── README_zh-CN.md         # Documentation (Chinese)
+├── requirements.txt       # R-Select dependencies
+├── LICENSE
+├── ODA-DataScorer/         # Data scoring submodule (60+ scorers)
+│   ├── model_based/        #   Neural model scorers
+│   └── heuristic/          #   Statistical/rule-based scorers
+├── LlamaFactory/           # SFT training framework (submodule)
 ├── configs/
 │   └── demo/
-│       ├── demo_proxy.yaml # LlamaFactory proxy 训练配置
-│       ├── scores.txt      # 本 demo 使用的指标名
-│       ├── Layer1/         # Layer1 cluster 配置
-│       └── Layer2/         # Layer2 配置
-├── utils/                  # 工具脚本
+│       ├── demo_proxy.yaml # LlamaFactory proxy training config
+│       ├── scores.txt      # Metric names used in this demo
+│       ├── Layer1/         # Layer1 cluster configs (Layer1_c1..c6.yaml)
+│       └── Layer2/         # Layer2 configs (Layer2_c1.yaml)
+├── utils/                  # Utility scripts
 │   ├── score_normalization.py
 │   ├── metrics_clustering.py
 │   ├── embedding.py
@@ -628,9 +629,14 @@ R-Select/
 │   ├── sampling.py
 │   ├── summarization.py
 │   └── trials_analysis.py
-├── data/                   # 数据目录
-│   └── scores.txt          # 默认指标名
-└── results/                # 优化结果
+├── examples/               # Example configs and assets
+│   └── warmstart/          # Warm-start JSON examples (Layer1_c1, etc.)
+├── data/                   # Data directory (pool, val, clustering outputs)
+│   ├── demo.jsonl          # Demo pool (with scores)
+│   ├── demo_val.jsonl      # Demo validation set
+│   ├── metrics_clustering/
+│   └── samples_clustering/
+└── results/                # Optimization results
     └── demo/
         ├── Layer1/
         ├── Layer2/
