@@ -338,7 +338,7 @@ python utils/metrics_clustering.py \
   -o data/metrics_clustering/cluster_results.txt \
   --sample_size 10000 \
   --n_clusters 6 \
-  --scores data/scores.txt \
+  --scores configs/demo/scores.txt \
   --use_absolute_corr
 ```
 
