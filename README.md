@@ -94,11 +94,11 @@ Raw data must be in JSONL format, one JSON object per line, with at least the fo
 ### val_jsonl (Validation Set)
 
 The validation set in the example code comes from the following five benchmarks:
-- https://huggingface.co/datasets/bigcode/bigcodebench
-- https://huggingface.co/datasets/Idavidrein/gpqa
-- https://huggingface.co/datasets/google-research-datasets/mbpp
-- https://huggingface.co/datasets/cais/mmlu
-- https://huggingface.co/datasets/KbsdJames/Omni-MATH
+- [bigcodebench](https://huggingface.co/datasets/bigcode/bigcodebench)
+- [gpqa](https://huggingface.co/datasets/Idavidrein/gpqa)
+- [mbpp](https://huggingface.co/datasets/google-research-datasets/mbpp)
+- [mmlu](https://huggingface.co/datasets/cais/mmlu)
+- [Omni-MATH](https://huggingface.co/datasets/KbsdJames/Omni-MATH)
 
 You can choose or build a suitable validation set according to your downstream task.
 
@@ -133,7 +133,10 @@ The example `data/demo.jsonl` is based on the [alpaca-gpt4](https://huggingface.
 
 ## Data Scoring
 
-R-Select requires multi-dimensional quality scores for each data sample before optimization. The project includes [ODA-DataScorer](ODA-DataScorer/) as a submodule, providing **60+ scorers**:
+Before optimization, R-Select needs multi-dimensional quality scores for each data sample. Scoring is fully flexible: whether you use custom scripts, manual scoring, or existing scored datasets (e.g. [OpenDataArena/ODA-scored-data-2603](https://huggingface.co/datasets/OpenDataArena/ODA-scored-data-2603)), as long as the output format is compatible with the downstream pipeline.
+
+**Optional: Official scoring tool**  
+If you need automatic, large-scale scoring, we provide a scoring tool [ODA-DataScorer](ODA-DataScorer/) integrated in this project. It supports **60+ scorers** and **80+ metrics**, covering quality, complexity, heuristic features, etc.:
 
 | Category | Description | Examples |
 |----------|-------------|----------|
@@ -142,27 +145,11 @@ R-Select requires multi-dimensional quality scores for each data sample before o
 
 > For the full scorer list and parameter descriptions, see [ODA-DataScorer/README.md](ODA-DataScorer/README.md).
 
-### Step 1: Define Scoring Metrics
-
-List the metric names to use in `scores.txt` (one per line). For example, `configs/demo/scores.txt` defines the 30 metrics used in the demo:
-
-```
-AtheneRM
-Cleanliness
-LLM_as_Judge_Complexity
-Compress_Ratio
-Deita_Complexity
-Deita_Quality
-...
-```
-
-These names will be used as keys in the data pool `scores` dictionary and referenced in R-Select configs.
-
-### Step 2: Install ODA-DataScorer
+### Step 1: Install ODA-DataScorer
 
 No separate installation is required; ODA-DataScorer dependencies are covered in the "Environment Setup" section above. If you encounter missing dependencies or installation issues later, refer to the README and requirements.txt under the ODA-DataScorer directory and install or troubleshoot as needed.
 
-### Step 3: Prepare Input Data
+### Step 2: Prepare Input Data
 
 ODA-DataScorer input is JSONL and must include at least `instruction` and `output` fields:
 
@@ -171,9 +158,9 @@ ODA-DataScorer input is JSONL and must include at least `instruction` and `outpu
 {"instruction": "Explain quantum entanglement.", "input": "", "output": "Quantum entanglement is a phenomenon..."}
 ```
 
-### Step 4: Configure and Run Scorer
+### Step 3: Configure and Run Scorer
 
-Create an ODA-DataScorer YAML config according to your defined metrics. Examples for each category:
+You can choose which scorers and parameters to use according to your needs. See ODA-DataScorer’s README.md and the [data scoring documentation](https://opendataarena-tool.readthedocs.io/en/latest/) for all built-in scorers and parameter descriptions. ODA-DataScorer is an open, flexible scoring framework and also supports custom scorers.
 
 **Model-based scorers** — run under `ODA-DataScorer/model_based/`:
 
@@ -229,7 +216,7 @@ cd ODA-DataScorer/heuristic
 python main.py --config configs/MyHeuristic.yaml
 ```
 
-### Step 5: Merge Scores into the Data Pool
+### Step 4: Merge Scores into the Data Pool
 
 **Score output location**: Under each ODA-DataScorer module’s output directory there will be `pointwise_scores.jsonl` (e.g., model-based: `ODA-DataScorer/model_based/results/<task_name>/pointwise_scores.jsonl`; heuristic similarly under its results directory).
 
@@ -239,13 +226,29 @@ python main.py --config configs/MyHeuristic.yaml
 {"id": 0, "scores": {"AtheneScorer": {"score": 4.5}, "PPLScorer": {"score": 12.34}}}
 ```
 
-**R-Select required format**: Merge scores back into the original pool so each sample is one JSONL line and `scores` is a flat key → value dictionary, e.g.:
+**Merge notes and recommendations**:
+
+- When merging scores into the original data pool, align by `id`. Each scorer may output multiple metrics—choose which metrics to merge and use according to your needs.
+- After merging, each sample should match the format required by R-Select:
 
 ```json
 {"id": 0, "instruction": "...", "input": "", "output": "...", "scores": {"AtheneScorer": 4.5, "PPLScorer": 12.34}}
 ```
 
-So you need to: read from `pointwise_scores.jsonl`, flatten nested `{"score": value}` to a single value, merge by `id` into the original data, and produce a pool file with `id`, `instruction`, `input`, `output`, and `scores`. If you score with other tools or custom score names, ensure **scores.txt**, **R-Select input data**, and **score names in the R-Select optimization config** are consistent.
+- **Note: The project does not provide a unified script for this step, because scorer output metric names and structure may differ. Please merge and flatten scores yourself based on the scorers and metrics you use.**
+- Once you have decided which metrics to use, list all score keys for optimization and sampling in `scores.txt`, one per line. For example, `configs/demo/scores.txt` defines the 30 metrics used in the demo:
+
+```
+AtheneRM
+Cleanliness
+LLM_as_Judge_Complexity
+Compress_Ratio
+Deita_Complexity
+Deita_Quality
+...
+```
+
+The entries in `scores.txt` should correspond one-to-one with the keys in the `scores` field of your pool JSONL and be consistent with R-Select configs.
 
 > For more detailed scorer documentation, config options, and advanced usage (data parallelism, resume, etc.), see [ODA-DataScorer README](ODA-DataScorer/README.md).
 
