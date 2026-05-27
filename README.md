@@ -1,10 +1,20 @@
-# R-Select: SFT Data Selection Pipeline
+# R-Select: A Robust Multi-Metric Data Selection Approach for Fine-Tuning Large Language Models
 
 <p align="center">
   English | <a href="./README_zh-CN.md">简体中文</a>
 </p>
 
+<p align="center">
+
+📄 [Paper](https://doi.org/10.1145/3770855.3817656)
+| 💻 Code: This Repository
+| 📑 KDD 2026
+
+</p>
+
+
 **R-Select** is a hierarchical score-weight optimization pipeline built on [Optuna](https://github.com/optuna/optuna) and [LlamaFactory](https://github.com/hiyouga/LlamaFactory), for selecting high-quality subsets from large data pools for SFT (Supervised Fine-Tuning). The framework supports arbitrary numbers of layers, cluster partitions, and metrics.
+
 
 ---
 
