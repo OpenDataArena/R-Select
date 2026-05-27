@@ -5,16 +5,41 @@
 </p>
 
 <p align="center">
-
-📄 [Paper](https://doi.org/10.1145/3770855.3817656)
-| 💻 Code: This Repository
-| 📑 KDD 2026
-
+<!-- MODIFIED: Added a local PDF link. Put the paper PDF at ./paper/R-Select.pdf before publishing. -->
+📄 [Paper](https://doi.org/10.1145/3770855.3817656) | [PDF](./paper/R-Select.pdf) | KDD 2026
 </p>
 
+**R-Select** is both an open-source framework and a research effort for robust multi-metric data selection in LLM post-training, built on [Optuna](https://github.com/optuna/optuna) and [LlamaFactory](https://github.com/hiyouga/LlamaFactory). The framework supports arbitrary numbers of layers, validation dataset, cluster partitions, and metrics.
 
-**R-Select** is a hierarchical score-weight optimization pipeline built on [Optuna](https://github.com/optuna/optuna) and [LlamaFactory](https://github.com/hiyouga/LlamaFactory), for selecting high-quality subsets from large data pools for SFT (Supervised Fine-Tuning). The framework supports arbitrary numbers of layers, cluster partitions, and metrics.
+This repository contains the implementation, experiments, and resources accompanying our KDD 2026 work:
 
+<p align="center">
+<img src="./assets/paper.png" width="850">
+</p>
+
+<p align="center">
+<img src="./assets/framework.png" width="850">
+</p>
+
+<!-- NEW START: Paper Highlights section -->
+## Paper Highlights
+
+R-Select studies how to automatically select high-quality SFT data from a large candidate pool when multiple heterogeneous scoring metrics are available. Instead of relying on a single heuristic metric or manually designed filtering rule, R-Select treats data selection as a weight optimization problem: it learns how to combine multiple data-quality signals using proxy-model validation loss as feedback.
+
+In the paper, R-Select is instantiated with 30 metrics and a two-layer hierarchical optimization pipeline. This open-source release generalizes the paper setting into a flexible framework: users can customize the number of metrics, validation sets, cluster partitions, optimization layers, proxy model settings, and final sampling strategy.
+
+<!-- NEW: Optional paper overview figure. Add this image if you want a paper-specific figure in the README. If you do not want an extra image, remove this block or replace it with ./assets/framework.png. -->
+<p align="center">
+<img src="./assets/paper_overview.png" width="850">
+</p>
+
+### Key Contributions
+
+- **Multi-metric data selection**: R-Select combines diverse quality, complexity, diversity, and heuristic scores instead of relying on a single metric.
+- **Validation-driven weight optimization**: R-Select uses proxy-model validation loss as a feedback signal to search for effective metric weights.
+- **Hierarchical optimization**: R-Select clusters related metrics and optimizes weights layer by layer to reduce high-dimensional search difficulty and improve stability.
+- **Framework generalization**: This repository extends the paper setup into a configurable pipeline supporting custom metrics, validation sets, layers, cluster partitions, and sampling strategies.
+<!-- NEW END: Paper Highlights section -->
 
 ---
 
@@ -28,6 +53,8 @@
 
 ## Table of Contents
 
+<!-- MODIFIED: Added Paper Highlights and Citation links. -->
+- [Paper Highlights](#paper-highlights)
 - [Environment Setup](#environment-setup)
 - [Data Format Requirements](#data-format-requirements)
 - [Data Scoring](#data-scoring)
@@ -39,6 +66,7 @@
 - [Utility Scripts](#utility-scripts)
 - [FAQ](#faq)
 - [Project Structure](#project-structure)
+- [Citation](#citation)
 - [References](#references)
 
 ---
@@ -650,7 +678,22 @@ R-Select/
         ├── Layer2/
         └── weight_summary.json
 ```
+---
+<!-- NEW START: Citation section -->
+## Citation
 
+If you find R-Select useful in your research or applications, please cite our paper:
+
+```bibtex
+@inproceedings{gao2026rselect,
+  title     = {R-Select: A Robust Multi-Metric Data Selection Approach for Fine-Tuning Large Language Models},
+  author    = {Gao, Xin and Wang, Xiaoyang and Zhu, Yun and Liu, Zheng and He, Conghui and Wu, Lijun},
+  booktitle = {Proceedings of the 32nd ACM SIGKDD Conference on Knowledge Discovery and Data Mining V.2},
+  year      = {2026},
+  doi       = {10.1145/3770855.3817656}
+}
+```
+<!-- NEW END: Citation section -->
 ---
 
 ## References
