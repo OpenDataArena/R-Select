@@ -35,6 +35,10 @@ In the paper, R-Select is instantiated with 30 metrics and a two-layer hierarchi
 <img src="./assets/paper_overview.png" width="500">
 </p>
 
+<p align="center">
+<img src="./assets/main_result.png" width="500">
+</p>
+
 ### Key Contributions
 
 - **Multi-metric data selection**: R-Select combines diverse quality, complexity, diversity, and heuristic scores instead of relying on a single metric.
