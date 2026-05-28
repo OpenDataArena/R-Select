@@ -5,8 +5,10 @@
 </p>
 
 <p align="center">
-<!-- MODIFIED: Added a local PDF link. Put the paper PDF at ./paper/R-Select.pdf before publishing. -->
-📄 [Paper](https://doi.org/10.1145/3770855.3817656) | [PDF](./paper/R-Select.pdf) | KDD 2026
+<p align="center">
+    <a href="https://arxiv.org/pdf/2504.12322"><img src="https://img.shields.io/badge/📄-Paper-red"></a>
+    <a href="https://github.com/GX-XinGao/GRA/blob/main/LICENSE"><img src="https://img.shields.io/github/license/QizhiPei/MathFusion"></a>
+    <a href="https://huggingface.co/collections/GX-XinGao/gra-6801cba58ceb0074566cdb4e"><img src="https://img.shields.io/badge/🤗 HuggingFace-Data & Models-green"></a>
 </p>
 
 **R-Select** is both an open-source framework and a research effort for robust multi-metric data selection in LLM post-training, built on [Optuna](https://github.com/optuna/optuna) and [LlamaFactory](https://github.com/hiyouga/LlamaFactory). The framework supports arbitrary numbers of layers, validation dataset, cluster partitions, and metrics.
