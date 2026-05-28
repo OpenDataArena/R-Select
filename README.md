@@ -6,7 +6,7 @@
 
 <p align="center">
 <p align="center">
-    <a href="https://arxiv.org/pdf/2504.12322"><img src="https://img.shields.io/badge/📄-Paper-red"></a>
+    <a href="./assets/kdd26_cr.pdf"><img src="https://img.shields.io/badge/📄-Paper-red"></a>
     <a href="https://github.com/GX-XinGao/GRA/blob/main/LICENSE"><img src="https://img.shields.io/github/license/QizhiPei/MathFusion"></a>
     <a href="https://huggingface.co/collections/GX-XinGao/gra-6801cba58ceb0074566cdb4e"><img src="https://img.shields.io/badge/🤗 HuggingFace-Data & Models-green"></a>
 </p>
