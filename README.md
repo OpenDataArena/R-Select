@@ -32,7 +32,7 @@ In the paper, R-Select is instantiated with 30 metrics and a two-layer hierarchi
 
 <!-- NEW: Optional paper overview figure. Add this image if you want a paper-specific figure in the README. If you do not want an extra image, remove this block or replace it with ./assets/framework.png. -->
 <p align="center">
-<img src="./assets/paper_overview.png" width="500">
+<img src="./assets/paper_overview.png" width="700">
 </p>
 
 <p align="center">
