@@ -36,7 +36,7 @@ In the paper, R-Select is instantiated with 30 metrics and a two-layer hierarchi
 </p>
 
 <p align="center">
-<img src="./assets/main_result.jpeg" width="850">
+<img src="./assets/main_result.jpeg" width="1000">
 </p>
 
 ### Key Contributions
